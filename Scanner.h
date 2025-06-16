@@ -14,7 +14,7 @@
 class Scanner
 {
 public:
-  Scanner(int led_count);
+  Scanner(int led_count, int scan_delay = 100);
   void update();
   ~Scanner();
 
@@ -22,15 +22,15 @@ private:
   int LED_count;
   int index = 0;
   int dir = 1;
-  int scanInterval; // in milliseconds
+  int scan_delay; // in milliseconds
   unsigned long lastUpdate = 0;
 
   CRGB *leds;
   Buffer refs = Buffer(4);
 };
 
-Scanner::Scanner(int LED_count)
-    : LED_count(LED_count)
+Scanner::Scanner(int LED_count, int scan_delay)
+    : LED_count(LED_count), scan_delay(scan_delay)
 {
   leds = new CRGB[LED_count]; // allocate memory
   index = 0;
@@ -41,6 +41,12 @@ Scanner::Scanner(int LED_count)
 
 void Scanner::update()
 {
+  unsigned long now = millis();
+  if (now - lastUpdate < scan_delay)
+    return;
+
+  lastUpdate = now;
+
   if (index == LED_count - 1)
     dir = -1;
   else if (index == 0)
@@ -55,7 +61,6 @@ void Scanner::update()
 
   index += dir;
   FastLED.show();
-  delay(100);
 }
 
 Scanner::~Scanner() { delete[] leds; }
