@@ -2,11 +2,6 @@
 
 Scanner scanner(10, 6);
 
-void setup()
-{
-}
+void setup() {}
 
-void loop()
-{
-  scanner.update();
-}
+void loop() { scanner.update(); }

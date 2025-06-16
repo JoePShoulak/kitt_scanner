@@ -6,7 +6,7 @@
 class Scanner
 {
 public:
-  Scanner(int led_count, int data_pin);
+  Scanner(int led_count, int data_pin, int scan_interval = 100);
   void update();
   ~Scanner();
 
@@ -14,9 +14,8 @@ private:
   int LED_count;
   int index = 0;
   int dir = 1;
-
+  int scanInterval; // in milliseconds
   unsigned long lastUpdate = 0;
-  const unsigned long scanInterval = 100;
 
   CRGB *leds;
   CRGB redMedium = CRGB(8, 0, 0); // very dim red

@@ -2,10 +2,10 @@
 
 #define DATA_PIN 6
 
-Scanner::Scanner(int LED_count, int dataPin)
-    : LED_count(LED_count)
+Scanner::Scanner(int LED_count, int dataPin, int scan_interval)
+    : LED_count(LED_count), scanInterval(scan_interval)
 {
-    leds = new CRGB[LED_count]; // allocate memory
+    leds = new CRGB[LED_count];
     index = 0;
     dir = 1;
 
@@ -17,6 +17,7 @@ void Scanner::update()
     unsigned long now = millis();
     if (now - lastUpdate < scanInterval)
         return;
+
     lastUpdate = now;
 
     if (index == LED_count - 1)
