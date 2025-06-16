@@ -14,6 +14,11 @@ Scanner::Scanner(int LED_count, int dataPin)
 
 void Scanner::update()
 {
+    unsigned long now = millis();
+    if (now - lastUpdate < scanInterval)
+        return;
+    lastUpdate = now;
+
     if (index == LED_count - 1)
         dir = -1;
     else if (index == 0)
@@ -42,7 +47,6 @@ void Scanner::update()
 
     index += dir;
     FastLED.show();
-    delay(100);
 }
 
 Scanner::~Scanner()

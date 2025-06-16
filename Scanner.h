@@ -15,6 +15,9 @@ private:
   int index = 0;
   int dir = 1;
 
+  unsigned long lastUpdate = 0;
+  const unsigned long scanInterval = 100;
+
   CRGB *leds;
   CRGB redMedium = CRGB(8, 0, 0); // very dim red
   CRGB redDim = CRGB(1, 0, 0);    // barely on red
