@@ -30,12 +30,9 @@ private:
 };
 
 Scanner::Scanner(int LED_count, int scan_delay)
-    : LED_count(LED_count), scan_delay(scan_delay)
+    : LED_count(LED_count), scan_delay(scan_delay), index(0), dir(1)
 {
   leds = new CRGB[LED_count]; // allocate memory
-  index = 0;
-  dir = 1;
-
   FastLED.addLeds<NEOPIXEL, SCANNER_DATA_PIN>(leds, LED_count);
 }
 
